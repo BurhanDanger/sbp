@@ -1,7 +1,5 @@
 #! /usr/bin/env bash
 
-settings_alert_threshold="${settings_alert_hook:-60}"
-
 function alert_exec() { # User notification
   [[ -z "$2" ]] && return
 
@@ -18,6 +16,7 @@ function alert_exec() { # User notification
 }
 
 function trigger_alert_hook {
+  settings_alert_threshold="${settings_alert_hook:-60}"
   local exit_code=$1
   local command_time=$2
 
@@ -36,4 +35,3 @@ function trigger_alert_hook {
     alert_exec "$title" "$message"
   fi
 }
-trigger_alert_hook "$1" "$2"

@@ -1,4 +1,4 @@
-function log_error() {
+function log() {
   local context="${BASH_SOURCE[1]}:${FUNCNAME[1]}"
   >&2 echo "${context}: ${*}"
 }
@@ -24,4 +24,4 @@ function load_config() {
   fi
 }
 
-export -f log_error
+export -f log
