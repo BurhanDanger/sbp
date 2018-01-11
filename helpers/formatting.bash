@@ -11,12 +11,15 @@ function print_colorized() { # prints ansi escape codes for fg and bg (optional)
   printf '%s' "${fg_escaped}${bg_escaped}"
 }
 
+# TODO rename to not pretty
 function pretty_print_segment() {
   local segment_color_fg="$1"
   local segment_color_bg="$2"
   local segment_value="$3"
 
-  printf '%s' "$(print_colorized "$segment_color_fg" "$segment_color_bg")${segment_value}"
+  #printf '%s' "$(print_colorized "$segment_color_fg" "$segment_color_bg")${segment_value}"
+  printf '%d;%d %s' "$segment_color_bg" "$segment_color_fg" "${segment_value}"
+
 }
 
 function pretty_print_seperator() {
@@ -37,7 +40,8 @@ function pretty_print_seperator() {
 }
 
 function get_current_bg_color() { # returns the last bg color code
-  sed -nE 's/.*\\\[\\e\[([0-9]+;[0-9]+;)?([0-9]+)m\\\].*/\2/pg' <<< "$1"
+  color_reset='0;0'
+  echo ${1%%;*}
 }
 
 function strip_escaped_colors() {
